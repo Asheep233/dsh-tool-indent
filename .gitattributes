@@ -1,0 +1,5 @@
+# 全部按 LF 存：本插件同时被 WSL 与 Windows 侧消费，
+# 客户端 bundle 里带 HTML/CSS 字符串，行尾被改写会污染产物。
+* text=auto eol=lf
+*.png binary
+*.tgz binary

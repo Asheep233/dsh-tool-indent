@@ -1,0 +1,66 @@
+{
+  "name": "dsh-tool-indent",
+  "version": "0.1.0",
+  "description": "DSH Web GUI 插件：给所有 Tool 调用加缩进，并在 设置→工具调用外观 里调 Tool/思考摘要的缩进、灰度与行间距",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "deepseek-harness-plugin",
+    "cordis",
+    "cordis-plugin",
+    "web-ui"
+  ],
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "src",
+    "scripts",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "license": "MIT",
+  "author": "Asheep233",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Asheep233/dsh-tool-indent.git"
+  },
+  "homepage": "https://github.com/Asheep233/dsh-tool-indent#readme",
+  "bugs": {
+    "url": "https://github.com/Asheep233/dsh-tool-indent/issues"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "build": "bash scripts/build.sh",
+    "build:host": "tsc -p tsconfig.json",
+    "build:client:types": "tsc -p tsconfig.client.json",
+    "build:client": "tsdown",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.client.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "~18.3.1",
+    "tsdown": "^0.22.14",
+    "typescript": "^5.9.3"
+  }
+}

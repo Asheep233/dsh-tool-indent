@@ -1,0 +1,11 @@
+# dsh-tool-indent bundle 层：向 web 组合插入本插件行。
+#
+# host 半边（lib/index.js）是空 apply——本插件是「浏览器专属 UI 插件」；
+# 全部效果由 client 半边（lib/client.js）在浏览器里注入一条样式规则完成：
+#   [data-chat-call-id] { margin-left: var(--dsh-tool-indent) }
+#
+# id 必须唯一（与其它 bundle 的 entry id 不冲突）；name 按包名解析，
+# 由 profile 的 node_modules（junction / 包管理器）或 dsh 安装作用域提供。
+- insert:
+    - id: dsh-tool-indent
+      name: dsh-tool-indent

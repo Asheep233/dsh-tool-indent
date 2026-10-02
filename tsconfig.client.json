@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "types": [],
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationDir": "lib/types/client",
+    "outDir": "lib/types/client",
+    "rootDir": "src/client",
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/client"]
+}
