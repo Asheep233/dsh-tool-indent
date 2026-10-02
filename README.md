@@ -1,5 +1,8 @@
 # dsh-tool-indent
 
+[![ci](https://github.com/Asheep233/dsh-tool-indent/actions/workflows/ci.yml/badge.svg)](https://github.com/Asheep233/dsh-tool-indent/actions/workflows/ci.yml)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
 给 DSH Web GUI 里**所有 Tool 调用**加统一左缩进的浏览器专属 UI 插件，
 并附带一页设置，可调 Tool / 「思考」摘要行的**缩进、灰度、行间距**。
 
