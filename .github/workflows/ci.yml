@@ -1,0 +1,50 @@
+name: ci
+
+# lib/ 是入库的构建产物（DSH 运行时直接消费 lib/client.js），所以这个 CI 的重点
+# 不只是"能编译"，而是**产物必须与源码一致**——防止改了 src/ 忘了重建就提交。
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # package-lock.json 入库，所以用 ci 而不是 install：依赖树可复现。
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 类型检查（host + client）
+        run: npm run typecheck
+
+      - name: 构建（tsc → lib + tsdown → lib/client.js）
+        run: bash scripts/build.sh
+
+      - name: 断言 lib/ 与提交一致
+        run: |
+          if ! git diff --exit-code --stat -- lib; then
+            echo "::error::lib/ 与 src/ 不同步——请在本地跑 'bash scripts/build.sh' 并把 lib/ 一起提交"
+            exit 1
+          fi
+          echo "lib/ 与源码一致 ✓"
+
+      - name: 校验打包内容（客户端 bundle 必须在包里）
+        run: |
+          npm pack --dry-run 2>&1 | tee /tmp/pack.txt
+          for f in lib/index.js lib/client.js cordis.patch.yml package.json; do
+            grep -q " $f$" /tmp/pack.txt || { echo "::error::npm 包里缺 $f"; exit 1; }
+          done
+          echo "打包内容 ✓"
